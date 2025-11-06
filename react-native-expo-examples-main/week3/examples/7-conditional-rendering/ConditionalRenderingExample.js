@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 function ConditionalRenderingExample() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,8 +63,9 @@ function ConditionalRenderingExample() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>Conditional Rendering Examples</Text>
 
         {/* Example 1: If/Else with function */}
@@ -165,7 +168,7 @@ function ConditionalRenderingExample() {
             {items.length > 0 ? `You have ${items.length} item(s)` : 'Your list is empty'}
           </Text>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

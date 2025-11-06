@@ -1,6 +1,5 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useState } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // TODO: Create two screens: ProductListScreen and ProductDetailScreen
 // ProductListScreen should display a list of products
@@ -15,27 +14,43 @@ const PRODUCTS = [
 ];
 
 // TODO: Create ProductListScreen component
-function ProductListScreen({ navigation }) {
+// Use onNavigate callback to navigate: onNavigate('product-detail', product)
+function ProductListScreen({ onNavigate }) {
   // Your code here
   return null;
 }
 
 // TODO: Create ProductDetailScreen component
-function ProductDetailScreen({ route }) {
+// Access product data via props: product prop contains the product data
+function ProductDetailScreen({ product, onNavigate }) {
   // Your code here
-  // Hint: Use route.params to get the product data
   return null;
 }
 
-const Stack = createStackNavigator();
-
+// Expo Router Stack pattern - simple state-based navigation
 function Exercise1() {
+  const [currentScreen, setCurrentScreen] = useState('product-list');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleNavigate = (screen, product = null) => {
+    setSelectedProduct(product);
+    setCurrentScreen(screen);
+  };
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'product-detail':
+        return <ProductDetailScreen product={selectedProduct} onNavigate={handleNavigate} />;
+      case 'product-list':
+      default:
+        return <ProductListScreen onNavigate={handleNavigate} />;
+    }
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ProductList">
-        {/* TODO: Add your screens here */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      {renderScreen()}
+    </SafeAreaProvider>
   );
 }
 

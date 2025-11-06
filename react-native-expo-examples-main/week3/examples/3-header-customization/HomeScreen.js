@@ -3,19 +3,26 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
-function SettingsScreen({ onNavigate }) {
+function HomeScreen({ onNavigate }) {
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <StatusBar style="dark" />
+    <SafeAreaView style={styles.container} edges={['bottom']}>
+      <StatusBar style="light" />
       <View style={styles.content}>
-        <Text style={styles.title}>Settings Screen</Text>
-        <Text style={styles.subtitle}>This is the Settings screen</Text>
+        <Text style={styles.title}>Home Screen</Text>
+        <Text style={styles.subtitle}>Custom Headers Example</Text>
         
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onNavigate('home')}
+          onPress={() => onNavigate('profile')}
         >
-          <Text style={styles.buttonText}>Go Back</Text>
+          <Text style={styles.buttonText}>Go to Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onNavigate('settings')}
+        >
+          <Text style={styles.buttonText}>Go to Settings</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -60,5 +67,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingsScreen;
+export default HomeScreen;
 

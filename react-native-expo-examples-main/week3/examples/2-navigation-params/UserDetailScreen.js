@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
-function UserDetailScreen({ route, navigation }) {
-  // Get params passed from navigation
-  const { user } = route.params;
+// Access params via props
+function UserDetailScreen({ user, onNavigate }) {
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
       <View style={styles.content}>
         <Text style={styles.title}>User Details</Text>
         
@@ -29,14 +31,14 @@ function UserDetailScreen({ route, navigation }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.goBack()}
+          onPress={() => onNavigate('users')}
         >
           <Text style={styles.buttonText}>Go Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.secondaryButton]}
-          onPress={() => navigation.navigate('UserEdit', { userId: user.id, userName: user.name })}
+          onPress={() => onNavigate('user-edit', { userId: user.id, userName: user.name })}
         >
           <Text style={[styles.buttonText, styles.secondaryButtonText]}>Edit User</Text>
         </TouchableOpacity>

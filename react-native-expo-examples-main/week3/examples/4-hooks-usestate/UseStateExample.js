@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 function UseStateExample() {
-  // Simple counter state
   const [count, setCount] = useState(0);
-  
-  // String state
   const [name, setName] = useState('');
-  
-  // Boolean state
   const [isVisible, setIsVisible] = useState(true);
-  
-  // Object state
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
   });
-  
-  // Array state
   const [items, setItems] = useState([]);
 
   const addItem = () => {
@@ -32,8 +25,9 @@ function UseStateExample() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>useState Hook Examples</Text>
 
         {/* Counter Example */}
@@ -122,7 +116,7 @@ function UseStateExample() {
           <Text style={styles.value}>Items: {items.join(', ') || 'No items'}</Text>
           <Text style={styles.value}>Count: {items.length}</Text>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  SafeAreaView,
   TextInput,
   Alert,
 } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 // TODO: Create a comprehensive app that combines multiple concepts:
-// 1. Navigation between screens
+// 1. Navigation between screens (use onNavigate callback)
 // 2. useState, useEffect, useRef hooks
 // 3. FlatList for displaying items
 // 4. Form handling for adding items
@@ -27,12 +26,12 @@ import {
 // - Use useRef to focus the input field when component mounts
 
 // TODO: Create an ItemDetailScreen that:
-// - Receives item data as navigation params
+// - Receives item data as props (item prop)
 // - Allows editing the item
 // - Shows item details
 // - Has a delete button
 
-function ShoppingListScreen({ navigation }) {
+function ShoppingListScreen({ onNavigate, items, setItems }) {
   // TODO: Add all necessary state and refs
   // TODO: Implement addItem function
   // TODO: Implement renderItem function
@@ -40,7 +39,8 @@ function ShoppingListScreen({ navigation }) {
   // TODO: Use useRef for input focus
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
       <View style={styles.content}>
         {/* TODO: Implement your shopping list screen */}
       </View>
@@ -48,13 +48,14 @@ function ShoppingListScreen({ navigation }) {
   );
 }
 
-function ItemDetailScreen({ route, navigation }) {
-  // TODO: Get item from route.params
+function ItemDetailScreen({ item, onNavigate, onUpdate, onDelete }) {
+  // TODO: Get item from props
   // TODO: Implement edit and delete functionality
   // TODO: Navigate back to list after operations
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
       <View style={styles.content}>
         {/* TODO: Implement your item detail screen */}
       </View>
@@ -62,24 +63,54 @@ function ItemDetailScreen({ route, navigation }) {
   );
 }
 
-const Stack = createStackNavigator();
-
+// Expo Router Stack pattern - simple state-based navigation
 function Exercise6() {
+  const [currentScreen, setCurrentScreen] = useState('shopping-list');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [items, setItems] = useState([]);
+
+  const handleNavigate = (screen, item = null) => {
+    setSelectedItem(item);
+    setCurrentScreen(screen);
+  };
+
+  const handleUpdate = (updatedItem) => {
+    setItems(items.map(i => i.id === updatedItem.id ? updatedItem : i));
+    handleNavigate('shopping-list');
+  };
+
+  const handleDelete = (itemId) => {
+    setItems(items.filter(i => i.id !== itemId));
+    handleNavigate('shopping-list');
+  };
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'item-detail':
+        return (
+          <ItemDetailScreen
+            item={selectedItem}
+            onNavigate={handleNavigate}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        );
+      case 'shopping-list':
+      default:
+        return (
+          <ShoppingListScreen
+            onNavigate={handleNavigate}
+            items={items}
+            setItems={setItems}
+          />
+        );
+    }
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ShoppingList">
-        <Stack.Screen
-          name="ShoppingList"
-          component={ShoppingListScreen}
-          options={{ title: 'Shopping List' }}
-        />
-        <Stack.Screen
-          name="ItemDetail"
-          component={ItemDetailScreen}
-          options={{ title: 'Item Details' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      {renderScreen()}
+    </SafeAreaProvider>
   );
 }
 

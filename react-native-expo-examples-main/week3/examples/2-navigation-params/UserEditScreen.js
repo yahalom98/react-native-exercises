@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
-function UserEditScreen({ route, navigation }) {
-  // Get params passed from navigation
-  const { userId, userName } = route.params;
-  
+function UserEditScreen({ userId, userName, onNavigate }) {
   const [name, setName] = useState(userName || '');
 
   const handleSave = () => {
-    // In a real app, you would save the data here
-    // For now, we'll just go back and pass the updated data
-    navigation.navigate('UserDetail', { 
+    onNavigate('user-detail', { 
       user: { 
         id: userId, 
         name: name, 
@@ -21,7 +18,8 @@ function UserEditScreen({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <StatusBar style="dark" />
       <View style={styles.content}>
         <Text style={styles.title}>Edit User</Text>
         
@@ -47,7 +45,7 @@ function UserEditScreen({ route, navigation }) {
 
         <TouchableOpacity
           style={[styles.button, styles.secondaryButton]}
-          onPress={() => navigation.goBack()}
+          onPress={() => onNavigate('users')}
         >
           <Text style={[styles.buttonText, styles.secondaryButtonText]}>Cancel</Text>
         </TouchableOpacity>

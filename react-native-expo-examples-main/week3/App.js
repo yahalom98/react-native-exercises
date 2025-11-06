@@ -1,6 +1,4 @@
-// Import React library and useState hook for state management
 import React, { useState } from 'react';
-// Import React Native core components for UI
 import {
   StyleSheet,
   ScrollView,
@@ -8,10 +6,8 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-// Import SafeAreaView and SafeAreaProvider from react-native-safe-area-context
-// This is the modern, recommended approach for handling safe areas
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-// Import Constants from Expo for accessing device constants
+import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 
 // Import Examples
@@ -136,52 +132,33 @@ const EXERCISES = [
   },
 ];
 
-/**
- * Main App Component
- * This is the entry point for the Week 3 lesson examples and exercises
- * It provides a menu to navigate between different examples and exercises
- */
 export default function App() {
-  // State to track which example or exercise is currently selected
-  // null means showing the main menu, otherwise it's the selected item object
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // If an item is selected, render that component instead of the menu
   if (selectedItem) {
-    // Extract the component from the selected item
     const Component = selectedItem.component;
-    // Return the selected example/exercise component with a back button
     return (
-      // SafeAreaProvider wraps the entire app to provide safe area context
       <SafeAreaProvider>
-        {/* Main container for the selected component */}
+        <StatusBar style="light" />
         <View style={styles.container}>
-          {/* Header with back button and title */}
           <SafeAreaView style={styles.header} edges={['top']}>
-            {/* Back button to return to main menu */}
             <TouchableOpacity
               style={styles.backButton}
-              // onPress handler that resets selectedItem to null, showing main menu
               onPress={() => setSelectedItem(null)}
             >
-              {/* Back button text with arrow symbol */}
               <Text style={styles.backButtonText}>← Back</Text>
             </TouchableOpacity>
-            {/* Header title showing the selected item's title */}
             <Text style={styles.headerTitle}>{selectedItem.title}</Text>
           </SafeAreaView>
-          {/* Render the selected component (example or exercise) */}
           <Component />
         </View>
       </SafeAreaProvider>
     );
   }
 
-  // Main menu view - shown when no item is selected
   return (
-    // SafeAreaProvider wraps the entire app to provide safe area context
     <SafeAreaProvider>
-      {/* SafeAreaView ensures content doesn't overlap with system UI */}
+      <StatusBar style="light" />
       <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <View style={styles.header}>
         <Text style={styles.mainTitle}>Week 3: React Native Concepts</Text>
