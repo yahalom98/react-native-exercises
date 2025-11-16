@@ -1,13 +1,16 @@
 # Week 5 – React Native Basics (Expo + Expo Router)
 
-This folder is a reset-project style example for Week 5.
+This is a **reset-project style** example for your Week 5 React Native lesson.
 
-Focus:
-- Styling with StyleSheet and flexbox
-- Reusable components
-- Pages (screens) with Expo Router
-- Stack navigation + transitions
-- API calls with axios
-- Params between screens
+It focuses on:
 
-This is not a full Expo project. Drop this week5 folder into your existing Expo / Expo Router training repo.
+- Styling with `StyleSheet` and flexbox
+- Reusable components (buttons, inputs, cards, containers)
+- File-based routing with Expo Router
+- Stack navigation, animations, and a modal screen
+- API calls with `axios`
+- Search, pull-to-refresh, and list rendering
+- Simple animations using the React Native `Animated` API
+
+> This is **not** a full Expo project.  
+> Drop the `week5` folder into an existing Expo Router workspace, or copy pieces into your training repo.

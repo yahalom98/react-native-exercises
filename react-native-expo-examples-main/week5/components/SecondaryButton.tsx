@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function PrimaryButton({ label, onPress }) {
+export default function SecondaryButton({ label, onPress }) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.85}>
       <Text style={styles.label}>{label}</Text>
@@ -10,17 +10,18 @@ export default function PrimaryButton({ label, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#6366f1',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#4b5563',
+    paddingVertical: 10,
+    paddingHorizontal: 18,
     borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 12,
+    marginTop: 10,
   },
   label: {
-    color: '#f9fafb',
-    fontSize: 16,
-    fontWeight: '600',
+    color: '#e5e7eb',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
