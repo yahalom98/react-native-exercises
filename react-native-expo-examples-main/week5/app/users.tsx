@@ -5,7 +5,6 @@ import ScreenContainer from '../components/ScreenContainer';
 import SectionTitle from '../components/SectionTitle';
 import InputField from '../components/InputField';
 import UserCard from '../components/UserCard';
-
 import { fetchUsers } from '../lib/api';
 
 export default function UsersScreen() {

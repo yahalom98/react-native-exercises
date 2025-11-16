@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View, ScrollView } from 'react-native';
 
 export default function ScreenContainer({ children, scrollable }) {

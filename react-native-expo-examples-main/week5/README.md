@@ -13,4 +13,4 @@ It focuses on:
 - Simple animations using the React Native `Animated` API
 
 > This is **not** a full Expo project.  
-> Drop the `week5` folder into an existing Expo Router workspace, or copy pieces into your training repo.
+> Drop this folder into an existing Expo Router workspace, or copy pieces into your training repo.
